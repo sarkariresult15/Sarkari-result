@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Average Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #1E293B, #3B82F6);
+            color: white;
+            text-align: center;
+        }
+        /* ======= NAVIGATION BAR ======= */
+        .navbar {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar h1 {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        .nav-links li {
+            margin: 0 15px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            color: #FFD700;
+        }
+        /* ======= MAIN CONTAINER ======= */
+        .container {
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .calculate {
+            background: #3B82F6;
+            color: white;
+            margin-right: 10px;
+        }
+        .calculate:hover {
+            background: #2563EB;
+        }
+        .clear {
+            background: #F59E0B;
+            color: white;
+        }
+        .clear:hover {
+            background: #D97706;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #FFD700;
+        }
+        /* ======= FOOTER BAR ======= */
+        .footer {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            margin-top: 40px;
+        }
+        .footer p {
+            font-size: 14px;
+        }
+        .footer-links {
+            margin-top: 10px;
+        }
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+        .footer-links a:hover {
+            color: #FFD700;
+        }
+		
+		.content { margin: 40px auto; padding: 20px; width: 70%; background: rgba(255, 255, 255, 0.1); border-radius: 12px; }
+        h2 { margin-bottom: 15px; font-weight: bold; }
+        p { font-size: 16px; line-height: 1.6; }
+        
+    </style>
+</head>
+<body>
+
+    <!-- ======= NAVIGATION BAR ======= -->
+    <nav class="navbar">
+        <h1>📈 स्टॉक एवरेज कैलकुलेटर</h1>
+        <ul class="nav-links">
+            <li><a href="#">🏠 होम</a></li>
+            <li><a href="#">📊 कैलकुलेटर</a></li>
+            <li><a href="#">ℹ जानकारी</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>🔢 स्टॉक एवरेज कैलकुलेटर</h2>
+
+        <div class="input-group">
+            <label>🔹 पहली खरीद (यूनिट्स)</label>
+            <input type="number" id="units1" placeholder="यूनिट दर्ज करें">
+        </div>
+
+        <div class="input-group">
+            <label>💰 पहली खरीद (प्रति शेयर मूल्य)</label>
+            <input type="number" id="price1" placeholder="मूल्य दर्ज करें">
+        </div>
+
+        <div class="input-group">
+            <label>🔹 दूसरी खरीद (यूनिट्स)</label>
+            <input type="number" id="units2" placeholder="यूनिट दर्ज करें">
+        </div>
+
+        <div class="input-group">
+            <label>💰 दूसरी खरीद (प्रति शेयर मूल्य)</label>
+            <input type="number" id="price2" placeholder="मूल्य दर्ज करें">
+        </div>
+
+        <div class="btn-group">
+            <button class="calculate" onclick="calculateAverage()">कैलकुलेट करें</button>
+            <button class="clear" onclick="clearFields()">रिसेट करें</button>
+        </div>
+
+        <p class="result" id="result">औसत शेयर मूल्य: -</p>
+    </div>
+	
+	
+	<div class="content">
+      
+	  <p>&nbsp;</p><h1 data-pm-slice="1 1 []"><strong>Stock Market Average Calculator: A Guide for Investors</strong></h1><h2><strong>Introduction</strong></h2><p>Making the right decisions while investing in the stock market is crucial. When you purchase stocks at different prices, calculating their average purchase price is essential. This not only helps you estimate your total cost but also accurately determines your profits and losses. The "Stock Market Average Calculator" proves to be a useful tool for this purpose. In this article, we will explore what this tool is, how it works, and how to use it effectively.</p><div><hr /></div><h2><strong>What is a Stock Market Average Calculator?</strong></h2><p>A Stock Market Average Calculator is an online tool that helps investors determine the average price of the stocks they have purchased. When an investor buys the same stock at different times and prices, this tool proves useful in calculating the total average cost.</p><p>For example, if you buy 10 shares of a stock at ₹100 per share and 20 shares at ₹120 per share, the average calculator will determine the overall average purchase price of these stocks.</p><div><hr /></div><h2><strong>Formula for Calculating Stock Average</strong></h2><p>There is a specific mathematical formula for calculating the stock market average:</p><p><span class="inline-math"></span></p><p>This means that the total cost of all stocks is divided by the total number of shares purchased.</p><h3><strong>Example:</strong></h3><p>Suppose you have purchased a stock as follows:</p><ul data-spread="false"><li><p>10 shares @ ₹100 = ₹1000</p></li><li><p>20 shares @ ₹120 = ₹2400</p></li><li><p>30 shares @ ₹150 = ₹4500</p></li></ul><p>Now, Total Cost = ₹1000 + ₹2400 + ₹4500 = ₹7900<br />Total Shares = 10 + 20 + 30 = 60<br />Average Purchase Price = ₹7900 / 60 = <strong>₹131.67 per share</strong></p><p>Thus, if you sell this stock at ₹140, you will make a profit, whereas selling at ₹130 will result in a loss.</p><p><br /></p><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj6HFZ6FAdRvtryk-ExwOSJ2RSwUMMsg8JaEU826RxLHd74KSME-GW3wW2oMRHkuFzsWF-TbtgPZiHNxrxIgew2EJgOstk8fcqyXPJyw7bH55ktQkuVO627vE2t5TvsofSCbjRiU5Z01Ugp0UrvvbPLw5oXTPQHiSSsaPDRzZjNSHhldCpXmDle0O74nt8/s676/Screenshot%202025-02-05%20214604.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img alt="Stock Market Average Calculator?" border="0" data-original-height="676" data-original-width="652" height="380" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj6HFZ6FAdRvtryk-ExwOSJ2RSwUMMsg8JaEU826RxLHd74KSME-GW3wW2oMRHkuFzsWF-TbtgPZiHNxrxIgew2EJgOstk8fcqyXPJyw7bH55ktQkuVO627vE2t5TvsofSCbjRiU5Z01Ugp0UrvvbPLw5oXTPQHiSSsaPDRzZjNSHhldCpXmDle0O74nt8/w592-h380/Screenshot%202025-02-05%20214604.png" title="Stock Market Average Calculator?" width="592" /></a></div><br /><p><br /></p><div><hr /></div><h2><strong>How to Use the Stock Average Calculator?</strong></h2><p>Using an online stock average calculator is simple:</p><ol data-spread="false" start="1"><li><p><strong>Enter the stock name</strong> – Input the name of the stock for which you want to calculate the average.</p></li><li><p><strong>Enter purchase details</strong> – Fill in the quantity of shares (Shares Bought) and their price (Stock Price).</p></li><li><p><strong>Click the "Calculate" button</strong> – The tool will provide the average purchase price.</p></li></ol><p>This tool helps investors make informed decisions on buying and selling stocks.</p><div><hr /></div><h2><strong>Benefits of Using a Stock Average Calculator</strong></h2><h3><strong>1. Clarity in Investment</strong></h3><p>This tool helps you accurately calculate your stock investment costs and provides a clear understanding of your total expenditure.</p><h3><strong>2. Profit and Loss Analysis</strong></h3><p>Knowing your average purchase price allows you to determine whether selling your stock will yield a profit or loss.</p><h3><strong>3. Improved Investment Strategy</strong></h3><p>With this tool, you can better plan your investments and make well-informed decisions.</p><div><hr /></div><h2><strong>When to Use a Stock Average Calculator?</strong></h2><ol data-spread="false" start="1"><li><p><strong>When purchasing stocks multiple times</strong> – If you buy the same stock at different prices, it is essential to know its average price.</p></li><li><p><strong>Before making a selling decision</strong> – Before selling a stock, it is crucial to determine your average purchase price.</p></li><li><p><strong>For investment planning</strong> – This tool helps decide the right time to buy or sell stocks.</p></li></ol><div><hr /></div><h2><strong>Online Stock Average Calculator vs. Manual Calculation</strong></h2><table><tbody><tr><th><strong>Method</strong></th><th><strong>Advantages</strong></th><th><strong>Disadvantages</strong></th></tr><tr><td><strong>Online Calculator</strong></td><td>Fast and accurate results</td><td>Requires internet access</td></tr><tr><td><strong>Manual Calculation</strong></td><td>Possible without any tools</td><td>Time-consuming and prone to errors</td></tr></tbody></table><div><hr /></div><h2><strong>Tips for Investing in the Stock Market</strong></h2><p>If you are investing in the stock market, keep these points in mind:</p><ol data-spread="false" start="1"><li><p><strong>Conduct Research</strong> – Analyze the company, market trends, and financial reports before investing in any stock.</p></li><li><p><strong>Think Long-Term</strong> – Focus on long-term growth rather than short-term profits.</p></li><li><p><strong>Control Emotions</strong> – The market fluctuates, so avoid making impulsive decisions.</p></li><li><p><strong>Diversify Your Portfolio</strong> – Instead of investing all your money in one stock, diversify across different sectors.</p></li><li><p><strong>Buy and Sell at the Right Time</strong> – Buy stocks when the market is down and consider selling when there is a rise.</p></li></ol><div><hr /></div><h2><strong>Conclusion</strong></h2><p>The Stock Market Average Calculator is an essential tool that helps investors accurately determine their average stock purchase cost. It strengthens investment strategies and aids in making the right decisions at the right time. If you aim for success in the stock market, this tool can be highly beneficial.</p><p>If you are investing in the stock market, make sure to use the Stock Average Calculator to enhance your investment decisions!</p><p></p>
+	  
+	  
+    </div>
+
+    <!-- ======= FOOTER BAR ======= -->
+    <footer class="footer">
+        <p>© 2025 Stock Calculator | सभी अधिकार सुरक्षित</p>
+        <div class="footer-links">
+            <a href="#">🔗 प्राइवेसी पॉलिसी</a>
+            <a href="#">🔗 टर्म्स & कंडीशंस</a>
+            <a href="#">📧 संपर्क करें</a>
+        </div>
+    </footer>
+
+    <script>
+        function calculateAverage() {
+            let units1 = parseFloat(document.getElementById("units1").value) || 0;
+            let price1 = parseFloat(document.getElementById("price1").value) || 0;
+            let units2 = parseFloat(document.getElementById("units2").value) || 0;
+            let price2 = parseFloat(document.getElementById("price2").value) || 0;
+
+            let totalUnits = units1 + units2;
+            let totalCost = (units1 * price1) + (units2 * price2);
+
+            if (totalUnits === 0) {
+                document.getElementById("result").innerText = "❌ कृपया सही डेटा दर्ज करें!";
+            } else {
+                let averagePrice = totalCost / totalUnits;
+                document.getElementById("result").innerText = "✅ औसत शेयर मूल्य: ₹" + averagePrice.toFixed(2);
+            }
+        }
+
+        function clearFields() {
+            document.getElementById("units1").value = "";
+            document.getElementById("price1").value = "";
+            document.getElementById("units2").value = "";
+            document.getElementById("price2").value = "";
+            document.getElementById("result").innerText = "औसत शेयर मूल्य: -";
+        }
+    </script>
+
+</body>
+</html>
