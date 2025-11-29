@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Quiz</title>
+  <style>
+  
+  
+  body {
+  font-family: sans-serif;
+  margin: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+#question-container {
+  margin-bottom: 20px;
+}
+
+#question {
+  font-weight: bold;
+}
+
+#answers {
+  list-style: none;
+  padding: 0;
+}
+
+.answer-btn {
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+#result {
+  text-align: center;
+}
+
+ </style>
+  
+</head>
+<body>
+  <h1>Code Quiz</h1>
+  <div id="question-container">
+    <p id="question"></p>
+    <ul id="answers">
+      <li><button class="answer-btn">Option 1</button></li>
+      <li><button class="answer-btn">Option 2</button></li>
+      <li><button class="answer-btn">Option 3</button></li>
+    </ul>
+  </div>
+  <button id="submit-btn">Submit Answer</button>
+  <p id="result"></p>
+  <script>
+  
+ 
+  
+  const questions = [
+  {
+    question: "What does HTML stand for?",
+    answers: ["Hypertext Markup Language", "High Tech Markup Language", "Hyperlink Text Markup Language"],
+    correctAnswer: 0
+  },
+  {
+    question: "What is the correct syntax to create a paragraph in HTML?",
+    answers: ["<p>", "<paragraph>", "<para>"],
+    correctAnswer: 0
+  },
+  
+  
+   
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+const questionEl = document.getElementById("question");
+const answerBtns = document.querySelectorAll(".answer-btn");
+const submitBtn = document.getElementById("submit-btn");
+const resultEl = document.getElementById("result");
+
+function displayQuestion() {
+  const question = questions[currentQuestion];
+  questionEl.textContent = question.question;
+  answerBtns.forEach((btn, index) => {
+    btn.textContent = question.answers[index];
+  });
+}
+
+function checkAnswer(selectedAnswer) {
+  if (selectedAnswer === questions[currentQuestion].correctAnswer) {
+    score++;
+    resultEl.textContent = "Correct!";
+  } else {
+    resultEl.textContent = "Incorrect.";
+  }
+}
+
+function nextQuestion() {
+  currentQuestion++;
+  if (currentQuestion < questions.length) {
+    displayQuestion();
+    resultEl.textContent = "";
+  } else {
+    submitBtn.disabled = true;
+    resultEl.textContent = `You answered ${score} out of ${questions.length} questions correctly.`;
+  }
+}
+
+displayQuestion();
+
+submitBtn.addEventListener("click", () => {
+  const selectedAnswer = parseInt(answerBtns.filter(btn => btn.classList.contains("active"))[0].textContent);
+  checkAnswer(selectedAnswer);
+  answerBtns.forEach(btn => btn.classList.remove("active"));
+  nextQuestion();
+});
+
+answerBtns.forEach(btn => btn.addEventListener("click", () => {
+  answerBtns.forEach(btn => btn.classList.remove("active"));
+  btn.classList.add("active");
+}));
+
+  
+  
+  
+  
+  </script>
+</body>
+</html>
